@@ -25,7 +25,12 @@ async function run() {
 
 
         app.get('/phones', async (req, res) => {
-            const result = await phonesCollection.find().toArray()
+            const sort = req.query.sort
+            const query ={}
+            const options = {
+                sort: { "price":sort ==="asc"? 1 : -1 },
+              };
+            const result = await phonesCollection.find(query,options).toArray()
             res.send(result)
         })
 
